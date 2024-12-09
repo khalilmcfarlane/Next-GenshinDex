@@ -1,7 +1,7 @@
 import axios from "axios";
 const GENSHIN_URL = "https://genshin.jmp.blue/characters";
 
-interface Character {
+export interface Character {
   name: string;
   id: string;
   nation: string;
@@ -31,22 +31,28 @@ export async function getAllCharacters() {
 
 async function addImageToCharacter(data: Character[]) {
   // Set character's image if found via API
-  data.map(async (char) => {
-    const image = await loadCharacterIcon(char.id);
-    console.log(image);
-    char.image = image;
-  });
+  await Promise.all(
+    data.map(async (char) => {
+      const image = await loadCharacterIcon(char.id);
+      //console.log(image);
+      char.image = image;
+    })
+  );
 }
 
 async function loadCharacterIcon(id: string) {
   try {
     const icon_url = `${GENSHIN_URL}/${id}/icon-big`;
-    const response = await axios.get(icon_url);
+    const response = await axios.get(icon_url, { responseType: "arraybuffer" });
     // Convert image from api request to proper format
-    const image = JSON.stringify(response.data);
+    //console.log(response.data)
+    const blob = new Blob([response.data], {
+      type: response.headers["content-type"],
+    });
+    const image = URL.createObjectURL(blob);
     return image;
   } catch (error) {
-    console.error(error);
+    console.error("Failed to fetch or convert image", error);
   }
 }
 
