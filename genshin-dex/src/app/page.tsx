@@ -4,7 +4,6 @@ import { Button, HStack } from "@chakra-ui/react";
 import { CharacterGrid } from "../components/ui/CharacterGrid";
 import { Character, getAllCharacters } from "@/utils/genshinFunctions";
 import styles from "./page.module.css";
-import { Image } from "@chakra-ui/react";
 import React, {useEffect, useState} from "react";
 
 

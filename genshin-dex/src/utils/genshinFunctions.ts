@@ -21,7 +21,7 @@ export async function getAllCharacters() {
     //console.log(data);
 
     // Add images to all characters
-    addImageToCharacter(data);
+    addImageToCharacters(data);
     return data;
     //return showAllCharacters(data);
   } catch (error) {
@@ -29,7 +29,7 @@ export async function getAllCharacters() {
   }
 }
 
-async function addImageToCharacter(data: Character[]) {
+async function addImageToCharacters(data: Character[]) {
   // Set character's image if found via API
   await Promise.all(
     data.map(async (char) => {

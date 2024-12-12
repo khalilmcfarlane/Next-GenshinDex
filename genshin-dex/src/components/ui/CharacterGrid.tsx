@@ -28,6 +28,7 @@ export function CharacterGrid({ characters }: CharacterProps) {
             mt="2"
           >
             {character.nation}
+            <br></br>
             {character.rarity}-star {character.vision} {character.weapon}
           </Text>
         </Card.Body>
